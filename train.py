@@ -178,7 +178,7 @@ def setup_training_options(
         '24gb-gpu-complex':     dict(ref_gpus=1,  kimg=25000,  mb=8, mbstd=8,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 24GB GPU
         '48gb-gpu':     dict(ref_gpus=1,  kimg=25000,  mb=16, mbstd=16,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 48GB GPU
         'stylegan2':     dict(ref_gpus=8,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, unlike original StyleGAN2
-        'endless':     dict(ref_gpus=8,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.0005,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, unlike original StyleGAN2
+        'endless':     dict(ref_gpus=2,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.0025,  gamma=15,   ema=10,  ramp=None, map=8), # uses mixed-precision, unlike original StyleGAN2
         'paper256':      dict(ref_gpus=8,  kimg=25000,  mb=64, mbstd=8,  fmaps=0.5, lrate=0.0025, gamma=1,    ema=20,  ramp=None, map=8),
         'paper512':      dict(ref_gpus=8,  kimg=25000,  mb=64, mbstd=8,  fmaps=1,   lrate=0.0025, gamma=0.5,  ema=20,  ramp=None, map=8),
         'paper1024':     dict(ref_gpus=8,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=2,    ema=10,  ramp=None, map=8),
@@ -200,7 +200,7 @@ def setup_training_options(
 
     args.total_kimg = spec.kimg
     args.minibatch_size = spec.mb
-    args.minibatch_gpu = spec.mb // spec.ref_gpus
+    args.minibatch_gpu = 8
     args.D_args.mbstd_group_size = spec.mbstd
     args.G_args.fmap_base = args.D_args.fmap_base = int(spec.fmaps * 16384)
     args.G_args.fmap_max = args.D_args.fmap_max = 512
